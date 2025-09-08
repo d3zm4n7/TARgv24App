@@ -6,9 +6,21 @@
     xmlns:local="clr-namespace:TARgv24"
     Title="TARgv24">
 
+    <Shell.TitleView>
+        <Label
+            Text="Näidised"
+            FontFamily = "LowRider BB 400"
+            FontSize="Title"
+            TextColor="DarkCyan"
+            VerticalTextAlignment="Center"
+            VerticalOptions="Center"
+            Padding="25,25,0,0"
+            HeightRequest="50"/>
+        
+    </Shell.TitleView>
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Title="Avaleht"
+        ContentTemplate="{DataTemplate local:StartPage}"
+        Route="StartPage" />
 
 </Shell>

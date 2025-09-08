@@ -28,6 +28,7 @@
                 x:Name="CounterBtn"
                 Text="Click me" 
                 HeightRequest="100"
+                LineBreakMode="WordWrap"
                 SemanticProperties.Hint="Counts the number of times you click"
                 Clicked="OnCounterClicked"
                 HorizontalOptions="Fill" />

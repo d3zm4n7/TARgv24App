@@ -5,6 +5,8 @@
         public App()
         {
             InitializeComponent();
+            NavigationPage MainPage = new NavigationPage(new AppShell()); //added new Navigation address//
+
         }
 
         protected override Window CreateWindow(IActivationState? activationState)

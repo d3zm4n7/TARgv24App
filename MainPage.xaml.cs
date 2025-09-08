@@ -24,7 +24,7 @@
             CounterBtn.Text = $"Clicked {count} times \n {text} ";
 
             SemanticScreenReader.Announce(CounterBtn.Text);
-Советую выходить из гитхаба
+//Советую выходить из гитхаба
         }
     }
 }
