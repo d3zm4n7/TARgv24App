@@ -14,7 +14,8 @@
             TextColor="DarkCyan"
             VerticalTextAlignment="Center"
             VerticalOptions="Center"
-            Padding="25,25,0,0"
+            HorizontalOptions="Center"
+            Padding="0,0,0,0"
             HeightRequest="50"/>
         
     </Shell.TitleView>
