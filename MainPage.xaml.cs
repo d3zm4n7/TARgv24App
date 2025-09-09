@@ -25,6 +25,7 @@
 
             SemanticScreenReader.Announce(CounterBtn.Text);
 //Советую выходить из гитхаба
+Нет, ну ты выходи из mandaadihaldur. А не просто комментируй мои сообщения
         }
     }
 }
