@@ -3,14 +3,14 @@ using Microsoft.Maui.Devices;
 
 namespace TARgv24;
 
-public partial class Valgusfoor : ContentPage
+public partial class ValgusfoorPage : ContentPage
 {
     BoxView redLight, yellowLight, greenLight;
     Label infoLabel;
     Button startBtn, stopBtn;
     bool isOn = false;
 
-    public Valgusfoor()
+    public ValgusfoorPage()
     {
         // Фон
         var backgroundImage = new Image
@@ -54,7 +54,7 @@ public partial class Valgusfoor : ContentPage
 
         var buttonsLayout = new HorizontalStackLayout
         {
-            Spacing = 200,
+            Spacing = 20,
             HorizontalOptions = LayoutOptions.Center,
             Children = { startBtn, stopBtn }
         };
@@ -125,8 +125,8 @@ public partial class Valgusfoor : ContentPage
 
     private void ResetLights()
     {
-        redLight.Color = Colors.DarkGray;
-        yellowLight.Color = Colors.DarkGray;
-        greenLight.Color = Colors.DarkGray;
+        redLight.Color = Colors.Black;
+        yellowLight.Color = Colors.Black;
+        greenLight.Color = Colors.Black;
     }
 }
