@@ -3,20 +3,20 @@ using Microsoft.Maui.Devices;
 
 namespace TARgv24;
 
-public partial class ValgusfoorPage : ContentPage
+public partial class Valgusfoor : ContentPage
 {
     BoxView redLight, yellowLight, greenLight;
     Label infoLabel;
     Button startBtn, stopBtn;
     bool isOn = false;
 
-    public ValgusfoorPage()
+    public Valgusfoor()
     {
         // background image
         var backgroundImage = new Image
         {
             Source = "trafficlight.png",
-            Aspect = Aspect.AspectFit
+            //Aspect = Aspect.AspectFit
         };
 
         // Title
@@ -54,7 +54,7 @@ public partial class ValgusfoorPage : ContentPage
 
         var buttonsLayout = new HorizontalStackLayout
         {
-            Spacing = 20,
+            Spacing = 200,
             HorizontalOptions = LayoutOptions.Center,
             Children = { startBtn, stopBtn }
         };
@@ -68,21 +68,56 @@ public partial class ValgusfoorPage : ContentPage
         };
 
         // GRID: background + inside content
-        var grid = new Grid();
-        grid.Children.Add(backgroundImage); // background
-        grid.Children.Add(new VerticalStackLayout
+        var grid = new Grid
         {
-            Spacing = 20,
-            Children =
-            {
-                infoLabel,
-                lightsLayout,
-                buttonsLayout
-            }
-        });
+            RowDefinitions =
+    {
+        new RowDefinition { Height = new GridLength(62) }, // верхняя часть (заголовок + пустое место)
+        new RowDefinition { Height = new GridLength(120) }, // красный
+        new RowDefinition { Height = new GridLength(120) }, // жёлтый
+        new RowDefinition { Height = new GridLength(120) }, // зелёный
+        new RowDefinition { Height = GridLength.Auto }      // кнопки
+    }
+        };
+
+        // фон
+        grid.Children.Add(backgroundImage);
+        Grid.SetRowSpan(backgroundImage, 5); // картинка на весь Grid
+        backgroundImage.TranslationX = -2;
+
+        // заголовок
+        grid.Children.Add(infoLabel);
+        Grid.SetRow(infoLabel, 0);
+        infoLabel.HorizontalOptions = LayoutOptions.Center;
+        infoLabel.VerticalOptions = LayoutOptions.Start;
+
+        // красный
+        grid.Children.Add(redLight);
+        Grid.SetRow(redLight, 1);
+        redLight.HorizontalOptions = LayoutOptions.Center;
+        redLight.VerticalOptions = LayoutOptions.Center;
+
+        // жёлтый
+        grid.Children.Add(yellowLight);
+        Grid.SetRow(yellowLight, 2);
+        yellowLight.HorizontalOptions = LayoutOptions.Center;
+        yellowLight.VerticalOptions = LayoutOptions.Center;
+
+        // зелёный
+        grid.Children.Add(greenLight);
+        Grid.SetRow(greenLight, 3);
+        greenLight.HorizontalOptions = LayoutOptions.Center;
+        greenLight.VerticalOptions = LayoutOptions.Center;
+
+        // кнопки
+        grid.Children.Add(buttonsLayout);
+        Grid.SetRow(buttonsLayout, 4);
+        buttonsLayout.HorizontalOptions = LayoutOptions.Center;
+        buttonsLayout.VerticalOptions = LayoutOptions.End;
 
         Content = grid;
     }
+
 
     private BoxView CreateLight(Color color)
     {
@@ -92,7 +127,9 @@ public partial class ValgusfoorPage : ContentPage
             WidthRequest = 100,
             HeightRequest = 100,
             CornerRadius = 50,
-            HorizontalOptions = LayoutOptions.Center
+            HorizontalOptions = LayoutOptions.Center,
+            VerticalOptions = LayoutOptions.Center,
+            BackgroundColor = Colors.Transparent
         };
     }
 
