@@ -12,14 +12,14 @@ public partial class ValgusfoorPage : ContentPage
 
     public ValgusfoorPage()
     {
-        // Фон
+        // background image
         var backgroundImage = new Image
         {
-            Source = "trafficlight.png", // картинка из Resources/Images
+            Source = "trafficlight.png",
             Aspect = Aspect.AspectFit
         };
 
-        // Заголовок
+        // Title
         infoLabel = new Label
         {
             Text = "Valgusfoor on välja lülitatud",
@@ -28,25 +28,25 @@ public partial class ValgusfoorPage : ContentPage
             TextColor = Colors.White
         };
 
-        // Красный
+        // red
         redLight = CreateLight(Colors.Black);
         var tapRed = new TapGestureRecognizer();
         tapRed.Tapped += (s, e) => ShowMessage("STOP", redLight, Colors.Red);
         redLight.GestureRecognizers.Add(tapRed);
 
-        // Жёлтый
+        // yellow
         yellowLight = CreateLight(Colors.Black);
         var tapYellow = new TapGestureRecognizer();
         tapYellow.Tapped += (s, e) => ShowMessage("OOTA", yellowLight, Colors.Yellow);
         yellowLight.GestureRecognizers.Add(tapYellow);
 
-        // Зелёный
+        // green
         greenLight = CreateLight(Colors.Black);
         var tapGreen = new TapGestureRecognizer();
         tapGreen.Tapped += (s, e) => ShowMessage("MINE", greenLight, Colors.Green);
         greenLight.GestureRecognizers.Add(tapGreen);
 
-        // Кнопки
+        // buttons
         startBtn = new Button { Text = "SISSE" };
         startBtn.Clicked += OnStartClicked;
         stopBtn = new Button { Text = "VÄLJA" };
@@ -67,9 +67,9 @@ public partial class ValgusfoorPage : ContentPage
             Children = { redLight, yellowLight, greenLight }
         };
 
-        // GRID: фон + содержимое
+        // GRID: background + inside content
         var grid = new Grid();
-        grid.Children.Add(backgroundImage); // на задний план
+        grid.Children.Add(backgroundImage); // background
         grid.Children.Add(new VerticalStackLayout
         {
             Spacing = 20,
