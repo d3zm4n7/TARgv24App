@@ -1,5 +1,7 @@
-﻿using Microsoft.Maui.Controls;
+﻿using System.Runtime.CompilerServices;
+using Microsoft.Maui.Controls;
 using Microsoft.Maui.Devices;
+using Microsoft.Maui.Dispatching;
 
 namespace TARgv24;
 
@@ -7,7 +9,7 @@ public partial class Valgusfoor : ContentPage
 {
     BoxView redLight, yellowLight, greenLight;
     Label infoLabel;
-    Button startBtn, stopBtn;
+    Button startBtn, stopBtn, nightBtn, dayBtn, resetBtn;
     bool isOn = false;
 
     public Valgusfoor()
@@ -24,26 +26,27 @@ public partial class Valgusfoor : ContentPage
         {
             Text = "Valgusfoor on välja lülitatud",
             FontSize = 24,
+            FontAttributes = FontAttributes.Bold,
             HorizontalOptions = LayoutOptions.Center,
-            TextColor = Colors.White
+            TextColor = Colors.DarkGreen
         };
 
         // red
         redLight = CreateLight(Colors.Black);
         var tapRed = new TapGestureRecognizer();
-        tapRed.Tapped += (s, e) => ShowMessage("STOP", redLight, Colors.Red);
+        tapRed.Tapped += (s, e) => ShowMessage("Seisa", redLight, Colors.Red);
         redLight.GestureRecognizers.Add(tapRed);
 
         // yellow
         yellowLight = CreateLight(Colors.Black);
         var tapYellow = new TapGestureRecognizer();
-        tapYellow.Tapped += (s, e) => ShowMessage("OOTA", yellowLight, Colors.Yellow);
+        tapYellow.Tapped += (s, e) => ShowMessage("Valmista", yellowLight, Colors.Yellow);
         yellowLight.GestureRecognizers.Add(tapYellow);
 
         // green
         greenLight = CreateLight(Colors.Black);
         var tapGreen = new TapGestureRecognizer();
-        tapGreen.Tapped += (s, e) => ShowMessage("MINE", greenLight, Colors.Green);
+        tapGreen.Tapped += (s, e) => ShowMessage("Sõida", greenLight, Colors.Green);
         greenLight.GestureRecognizers.Add(tapGreen);
 
         // buttons
@@ -51,12 +54,30 @@ public partial class Valgusfoor : ContentPage
         startBtn.Clicked += OnStartClicked;
         stopBtn = new Button { Text = "VÄLJA" };
         stopBtn.Clicked += OnStopClicked;
+        nightBtn = new Button { Text = "ÖÖREŽIIM" };
+        nightBtn.Clicked += OnNightModeClicked;
+        dayBtn = new Button { Text = "PÄEVAREŽIIM" };
+        dayBtn.Clicked += OnDayModeClicked;
+        resetBtn = new Button { Text = "RESET" };
+        resetBtn.Clicked += (s, e) =>
+        {
+
+            dayModeActive = false;
+            nightModeActive = false;
+
+
+            ResetLights();
+            infoLabel.Text = "Valgusfoor on välja lülitatud!";
+            isOn = false;
+        };
+
+
 
         var buttonsLayout = new HorizontalStackLayout
         {
-            Spacing = 200,
-            HorizontalOptions = LayoutOptions.Center,
-            Children = { startBtn, stopBtn }
+            Spacing = 10,
+            HorizontalOptions = LayoutOptions.Start,
+            Children = { startBtn, stopBtn , nightBtn, dayBtn, resetBtn }
         };
 
         var lightsLayout = new VerticalStackLayout
@@ -165,5 +186,103 @@ public partial class Valgusfoor : ContentPage
         redLight.Color = Colors.Black;
         yellowLight.Color = Colors.Black;
         greenLight.Color = Colors.Black;
+    }
+
+    private bool nightModeActive = false;
+
+    private async void OnNightModeClicked(object? sender, EventArgs e)
+    {
+        if (!isOn) // если светофор выключен
+        {
+            infoLabel.Text = "ÖÖREŽIIM AKTIVEERITUD!";
+            nightModeActive = true;
+
+            // все лампы выключаем
+            redLight.Color = Colors.Black;
+            redLight.BackgroundColor = Colors.Transparent;
+            greenLight.Color = Colors.Black;
+            greenLight.BackgroundColor = Colors.Transparent;
+
+            // цикл мигания
+            for (int i = 0; i < 5 && nightModeActive; i++)
+            {
+                yellowLight.Color = Colors.Yellow;
+                yellowLight.BackgroundColor = Colors.Transparent;
+                await Task.Delay(700);
+
+                yellowLight.Color = Colors.Black;
+                yellowLight.BackgroundColor = Colors.Transparent;
+                await Task.Delay(700);
+            }
+        }
+        else
+        {
+            // выключаем ночной режим
+            infoLabel.Text = "ÖÖREŽIIM LÕPETATUD!";
+            nightModeActive = false;
+            yellowLight.BackgroundColor = Colors.Transparent;
+        }
+
+    }
+
+    private bool dayModeActive = false;
+
+    private async void OnDayModeClicked(object? sender, EventArgs e)
+    {
+        if (!isOn)
+        {
+            infoLabel.Text = "PÄEVAREŽIIM AKTIVEERITUD!";
+            dayModeActive = true;
+
+            ResetLights();
+
+            while (dayModeActive)
+            {
+                redLight.Color = Colors.Red;
+                await Task.Delay(2000);
+
+                yellowLight.Color = Colors.Yellow;
+                await Task.Delay(1500);
+
+                redLight.Color = Colors.Black;
+                yellowLight.Color = Colors.Black;
+                greenLight.Color = Colors.Green;
+                await Task.Delay(2000);
+
+                //for (int i = 0; i < 3 && dayModeActive; i++)
+                //{
+                //    greenLight.Color = Colors.Black;
+                //    await Task.Delay(1000);
+
+                //    greenLight.Color = Colors.Green;
+                //    await Task.Delay(1000);
+                //}
+
+                greenLight.Color = Colors.Black;
+                await Task.Delay(1000);
+
+                greenLight.Color = Colors.Green;
+                await Task.Delay(1000);
+
+                greenLight.Color = Colors.Black;
+                await Task.Delay(1000);
+
+                greenLight.Color = Colors.Green;
+                await Task.Delay(500);
+
+                greenLight.Color = Colors.Black;
+                yellowLight.Color = Colors.Yellow;
+                await Task.Delay(1500);
+
+                yellowLight.Color = Colors.Black;
+            }
+        }
+        else
+        {
+            // выключаем дневной режим
+            infoLabel.Text = "PÄEVAREŽIIM LÕPETATUD!";
+            dayModeActive = false;
+            ResetLights();
+        }
     }
 }
