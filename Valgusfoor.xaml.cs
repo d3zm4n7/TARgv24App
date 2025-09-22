@@ -234,9 +234,7 @@ public partial class Valgusfoor : ContentPage
             infoLabel.Text = "PÄEVAREŽIIM AKTIVEERITUD!";
             dayModeActive = true;
 
-            ResetLights();
-
-            while (dayModeActive)
+            for (int i = 0; i < 2 && dayModeActive; i++)
             {
                 redLight.Color = Colors.Red;
                 await Task.Delay(2000);
@@ -259,16 +257,16 @@ public partial class Valgusfoor : ContentPage
                 //}
 
                 greenLight.Color = Colors.Black;
-                await Task.Delay(1000);
+                await Task.Delay(700);
 
                 greenLight.Color = Colors.Green;
-                await Task.Delay(1000);
+                await Task.Delay(700);
 
                 greenLight.Color = Colors.Black;
-                await Task.Delay(1000);
+                await Task.Delay(700);
 
                 greenLight.Color = Colors.Green;
-                await Task.Delay(500);
+                await Task.Delay(700);
 
                 greenLight.Color = Colors.Black;
                 yellowLight.Color = Colors.Yellow;

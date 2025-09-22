@@ -66,8 +66,8 @@ public partial class Lumememm : ContentPage
         slider = new Slider
         {
             Minimum = 0,
-            Maximum = 10,
-            Value = 5
+            Maximum = 1,
+            Value = 1
         };
         // Прозрачность снеговика
         slider.ValueChanged += (_, e) =>

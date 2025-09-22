@@ -13,10 +13,18 @@ namespace TARgv24
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                })
+                .ConfigureMauiHandlers(handlers =>
+                 {
+                     // ...
+                 })
+                .ConfigureEssentials(essentials =>
+                {
+                    essentials.AddAppAction("app_icon", "My App", "appicondez.png");
                 });
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();
