@@ -15,7 +15,7 @@ public partial class DateTimePage : ContentPage
     {
         mis_on_valitud = new Label
         {
-            Text = "Siin kuvatakse valitud kuupäev või kellaaeg",
+            Text = "Siin kuvatakse valitud kuupaev v6i kellaaeg",
             FontSize = 20,
             TextColor = Colors.White,
             FontFamily = "LowRider BB 400"
@@ -31,7 +31,7 @@ public partial class DateTimePage : ContentPage
             Date = DateTime.Now,
             Format = "D"
         };
-        datePicker.DateSelected += Kuupäeva_valimine;
+        datePicker.DateSelected += Kuupaeva_valimine;
 
         timePicker = new TimePicker
         {
@@ -52,7 +52,7 @@ public partial class DateTimePage : ContentPage
 
         picker = new Picker
         {
-            Title = "Vali üks",
+            Title = "Vali yks",
             FontSize = 20,
             BackgroundColor = Color.FromRgb(200, 200, 100),
             FontFamily = "LowRider BB 400",
@@ -144,8 +144,8 @@ public partial class DateTimePage : ContentPage
         Content = al;
     }
 
-    private void Kuupäeva_valimine(object? sender, DateChangedEventArgs e)
+    private void Kuupaeva_valimine(object? sender, DateChangedEventArgs e)
     {
-        mis_on_valitud.Text = $"Valisite kuupäeva: {e.NewDate:D}";
+        mis_on_valitud.Text = $"Valisite kuupaeva: {e.NewDate:D}";
     }
 }
